@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Change title accordingly-->
+    <title>Building X, Level Y, Room Z Map</title>
+    <link rel="stylesheet" href="./Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div class="map-container">
+            <!-- Image path here -->
+            <img src="" alt="Map" class="map-image">
+
+            <!-- Place buttons here and give them a seat number, but keep the class -->
+            <!-- One example entry with seat number 1 -->
+            <div class="seat-button" style="top: 81%; left: 43.5%;" data-building="Building1" data-level="Level1" data-room="Room1" data-seat="1" data-seatID="B1L1R1S1">1</div>
+            
+            <!-- End of edits here -->
+
+            <div id="popup" class="popup hidden">
+                <div class="popup-content">
+                    <h2>Book seat <span id="seat-number"></span></h2>
+                    
+                    <p id="popup-text"></p> 
+                    <button id="confirm-button"></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./Booking.js"></script>
+</body>
+
+</html>
