@@ -8,6 +8,7 @@ const usersRouter = require('./routes/users');
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -19,11 +20,10 @@ app.use('/api/users', usersRouter);
 
 // Standard route
 app.get('/', (req, res) => {
-  res.send('TabRes ist aktiv');
+  res.send('TabRes-API ist aktiv');
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server läuft auf http://localhost:${PORT}`);
 });

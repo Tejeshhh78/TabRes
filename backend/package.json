@@ -15,9 +15,11 @@
   "license": "ISC",
   "description": "This project should implement a booking table system for the DHBW.",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.0.3"
   },
   "devDependencies": {
