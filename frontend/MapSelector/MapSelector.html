@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Map Selector</title>
+    <link rel="stylesheet" href="SelectorStyles.css">
+</head>
+
+<body>
+    <main>
+        <div class="dropdown-container">
+            <select id="building-dropdown">
+                <option value="" disabled selected>Select Building</option>
+                <option value="building1">Building 1</option>
+            </select>
+
+            <select id="level-dropdown">
+                <option value="" disabled selected>Select Level</option>
+                <option value="level1">Level 1</option>
+            </select>
+
+            <select id="room-dropdown">
+                <option value="" disabled selected>Select Room</option>
+                <option value="room1">Room 1</option>
+            </select>
+
+            <button id="confirm-button">Confirm</button>
+        </div>
+
+        <div class="iframe-container">
+            <iframe id="embedded-page" src="" frameborder="0"></iframe>
+        </div>        
+    </main>
+
+    <script src="SelectorLogic.js"></script>
+</body>
+
+</html>
