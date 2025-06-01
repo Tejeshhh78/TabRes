@@ -23,20 +23,11 @@ const BookingSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  numberOfGuests: {
-    type: Number,
-    required: true,
-    min: 1
-  },
   status: {
     type: String,
     enum: ['pending', 'confirmed', 'cancelled'],
     default: 'pending'
   },
-  specialRequests: {
-    type: String,
-    default: ''
-  }
 }, {
   timestamps: true
 });
