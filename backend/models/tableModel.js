@@ -6,11 +6,6 @@ const TableSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  capacity: {
-    type: Number,
-    required: true,
-    min: 1
-  },
   room: {
     type: String,
     required: true,
@@ -19,6 +14,10 @@ const TableSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  features: [{
+    type: String,
+    enum: ['Monitor', 'Dockingstation', 'Höhenverstellbar', 'Spezial-PC', 'Telefonanlage']
+  }],
   isAvailable: {
     type: Boolean,
     default: true

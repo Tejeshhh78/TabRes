@@ -15,21 +15,25 @@ const BookingSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  startTime: {
+  timeSlot: {
     type: String,
-    required: true
-  },
-  endTime: {
-    type: String,
+    enum: ['Vormittag', 'Nachmittag', 'Ganztags'],
     required: true
   },
   status: {
     type: String,
-    enum: ['pending', 'confirmed', 'cancelled'],
-    default: 'pending'
+    enum: ['Bestätigt', 'Storniert'],
+    default: 'Bestätigt'
   },
+  notes: {
+    type: String,
+    default: ''
+  }
 }, {
   timestamps: true
 });
+
+// Indexierung zur Beschleunigung von Abfragen für Verfügbarkeit
+BookingSchema.index({ date: 1, table: 1, timeSlot: 1, status: 1 });
 
 module.exports = mongoose.model('Booking', BookingSchema);
