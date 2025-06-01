@@ -1,0 +1,19 @@
+{
+  "name": "tab_res",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web",
+    "api"
+  ],
+  "author": "Maxim Krüger, Lukas Breuer, Tejesh Simkhada",
+  "license": "ISC",
+  "description": "This project should implement a booking table system for the DHBW.",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
