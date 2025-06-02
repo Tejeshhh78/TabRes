@@ -14,6 +14,11 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Verbindung zur MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB verbunden'))
+  .catch(err => console.error('MongoDB Verbindungsfehler:', err));
+
 // Routes
 app.use('/api/status', statusRouter);
 app.use('/api/users', usersRouter);
