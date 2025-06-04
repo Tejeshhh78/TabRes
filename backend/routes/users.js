@@ -6,7 +6,7 @@ router.get('/status', (req, res) => {
 });
 
 // Beispiel: Liste aller User
-router.get('/users', (req, res) => {
+router.get('/', (req, res) => {
   res.json([
     { id: 1, name: 'Anna' },
     { id: 2, name: 'Max' }
