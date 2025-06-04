@@ -1,0 +1,30 @@
+/* style.css */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* Inter is a good default, but provide fallbacks */
+}
+
+/* Additional styles for better visual hierarchy or specific elements if needed */
+.nav-button.active {
+    background-color: #0284c7; /* sky-600, adjust as needed */
+    color: white;
+}
+
+/* You might want to style radio buttons more distinctively if default ones are not preferred */
+#timeSlotRadios label, #editBookingTimeSlot option {
+    cursor: pointer;
+}
+
+/* Ensure the main application view takes up height correctly */
+#appView {
+    display: flex; /* This will be toggled by JS, but good to have for structure */
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main.flex-grow {
+    flex-grow: 1;
+}
+
+/* Import Google Font Inter if you want to ensure it's available */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
