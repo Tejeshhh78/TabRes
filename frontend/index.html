@@ -41,6 +41,7 @@
                     <span id="currentUserDisplay" class="text-sm hidden md:block"></span>
                     <button data-page="dashboard" class="nav-button hover:bg-slate-700 px-2 py-2 md:px-3 rounded-md text-sm font-medium flex items-center"><i class="fas fa-home mr-1"></i> Dashboard</button>
                     <button data-page="map" class="nav-button hover:bg-slate-700 px-2 py-2 md:px-3 rounded-md text-sm font-medium flex items-center"><i class="fas fa-map-marked-alt mr-1"></i> Karte</button>
+                    <button data-page="manage" class="nav-button hover:bg-slate-700 px-2 py-2 md:px-3 rounded-md text-sm font-medium flex items-center"><i class="fas fa-edit mr-1"></i> Verwalten</button>
                     <button id="logoutButton" class="bg-sky-600 hover:bg-sky-700 px-2 py-2 md:px-3 rounded-md text-sm font-medium flex items-center"><i class="fas fa-sign-out-alt mr-1"></i> Logout</button>
                 </div>
             </div>
@@ -87,36 +88,47 @@
                 </div>
             </div>
 
-            <div id="bookPage" class="page-content hidden">
-                <h2 class="text-3xl font-semibold text-slate-800 mb-6">Plätze Buchen</h2>
-                <div id="bookingMessage" class="p-3 rounded-md mb-4 text-sm hidden"></div>
-                <form id="bookingForm" class="bg-white p-6 rounded-lg shadow-md space-y-6 max-w-lg mx-auto">
-                    <div>
-                        <label for="tableSelect" class="block text-sm font-medium text-slate-700 mb-1">Tisch/Raum auswählen</label>
-                        <select id="tableSelect" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500" required>
-                            <option value="">-- Bitte wählen --</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="bookingDate" class="block text-sm font-medium text-slate-700 mb-1">Datum auswählen</label>
-                        <input type="date" id="bookingDate" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Zeitfenster auswählen</label>
-                        <div id="timeSlotRadios" class="space-y-2">
-                        </div>
-                    </div>
-                    <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300 ease-in-out flex items-center justify-center">
-                        <i class="fas fa-plus-circle mr-2"></i> Jetzt Buchen
-                    </button>
-                </form>
-            </div>
-
             <div id="managePage" class="page-content hidden">
                 <h2 class="text-3xl font-semibold text-slate-800 mb-6">Meine Buchungen Verwalten</h2>
+                
+                <!-- Filter and Summary Section -->
+                <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+                        <div>
+                            <h3 class="text-lg font-medium text-slate-700 mb-2">Buchungsübersicht</h3>
+                            <div class="flex flex-wrap gap-4 text-sm">
+                                <span id="totalBookingsCount" class="text-slate-600">Gesamt: 0</span>
+                                <span id="activeBookingsCount" class="text-green-600">Aktiv: 0</span>
+                                <span id="cancelledBookingsCount" class="text-red-600">Storniert: 0</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <select id="bookingStatusFilter" class="p-2 border border-slate-300 rounded-md text-sm">
+                                <option value="all">Alle Buchungen</option>
+                                <option value="active">Nur Aktive</option>
+                                <option value="cancelled">Nur Stornierte</option>
+                                <option value="upcoming">Kommende Buchungen</option>
+                                <option value="past">Vergangene Buchungen</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="manageBookingMessage" class="p-3 rounded-md mb-4 text-sm hidden"></div>
+                
+                <!-- No bookings message -->
+                <div id="noBookingsMessage" class="bg-white p-8 rounded-lg shadow-md text-center hidden">
+                    <i class="fas fa-calendar-times fa-3x text-slate-400 mb-4"></i>
+                    <h3 class="text-xl font-medium text-slate-700 mb-2">Keine Buchungen gefunden</h3>
+                    <p class="text-slate-500 mb-4">Sie haben noch keine Buchungen oder alle wurden storniert.</p>
+                    <button data-page="map" class="nav-button bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-md">
+                        <i class="fas fa-plus-circle mr-2"></i>Zur Karte
+                    </button>
+                </div>
+                
+                <!-- Bookings List -->
                 <div id="userBookingsContainer" class="space-y-4">
-                    <p class="text-slate-500 bg-white p-6 rounded-lg shadow">Sie haben keine Buchungen.</p>
+                    <p class="text-slate-500 bg-white p-6 rounded-lg shadow">Lade Buchungen...</p>
                 </div>
             </div>
 
@@ -138,6 +150,23 @@
                         <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 rounded-md">Speichern</button>
                     </div>
                 </form>
+            </div>
+
+            <!-- Bulk Delete Confirmation Modal -->
+            <div id="bulkDeleteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-exclamation-triangle fa-2x text-red-500 mr-3"></i>
+                        <h3 class="text-xl font-medium text-slate-700">Buchungen löschen</h3>
+                    </div>
+                    <p class="text-slate-600 mb-4">Möchten Sie wirklich <span id="bulkDeleteCount">0</span> Buchung(en) löschen? Diese Aktion kann nicht rückgängig gemacht werden.</p>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" id="cancelBulkDelete" class="px-4 py-2 text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md">Abbrechen</button>
+                        <button type="button" id="confirmBulkDelete" class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md">
+                            <i class="fas fa-trash-alt mr-1"></i>Löschen
+                        </button>
+                    </div>
+                </div>
             </div>
 
         </main>
