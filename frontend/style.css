@@ -10,7 +10,6 @@ body {
     color: white;
 }
 
-/* You might want to style radio buttons more distinctively if default ones are not preferred */
 #timeSlotRadios label, #editBookingTimeSlot option {
     cursor: pointer;
 }
@@ -28,3 +27,126 @@ main.flex-grow {
 
 /* Import Google Font Inter if you want to ensure it's available */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- Map Grid Styling --- */
+.map-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    background: #f8fafc;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.map-room-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.map-room-header {
+    font-weight: bold;
+    color: #0369a1;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+.map-desks-grid {
+    display: grid;
+    gap: 10px;
+}
+.map-desk {
+    background: #e0f2fe;
+    border: 2px solid #38bdf8;
+    border-radius: 8px;
+    padding: 18px 0;
+    text-align: center;
+    font-weight: 500;
+    color: #0369a1;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s, box-shadow 0.2s;
+}
+.map-desk.available:hover {
+    background: #bae6fd;
+    border-color: #0ea5e9;
+    box-shadow: 0 0 8px #38bdf8;
+}
+.map-desk.booked {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #b91c1c;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.non-bookable-room {
+    opacity: 0.5;
+}
+
+/* Styles for the 2D Map */
+.map-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns as in the image */
+    grid-template-rows: repeat(2, 1fr);    /* 2 rows */
+    gap: 10px; /* Space between rooms */
+    width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto; /* Center the map */
+    aspect-ratio: 2 / 1; /* Approximate ratio for 4x2 grid of squares */
+}
+
+.map-room {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #cbd5e1; /* slate-300 */
+    border-radius: 0.375rem; /* rounded-md */
+    padding: 8px;
+    text-align: center;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    position: relative; /* For potential future elements like capacity display */
+}
+
+.map-room .room-name {
+    font-weight: 500; /* medium */
+    margin-bottom: 4px;
+}
+.map-room .room-capacity {
+    font-size: 0.7rem;
+    color: #64748b; /* slate-500 */
+}
+
+
+.map-room.available {
+    background-color: #86efac; /* green-300 */
+    border-color: #22c55e; /* green-500 */
+}
+.map-room.available:hover {
+    background-color: #4ade80; /* green-400 */
+}
+
+.map-room.booked {
+    background-color: #f87171; /* red-400 */
+    border-color: #dc2626; /* red-600 */
+    cursor: not-allowed;
+    color: #fff;
+}
+.map-room.booked .room-capacity {
+    color: #fecaca; /* red-200 */
+}
+
+
+.map-room.non-bookable {
+    background-color: #e2e8f0; /* slate-200 */
+    border-color: #94a3b8; /* slate-400 */
+    cursor: not-allowed;
+    color: #64748b; /* slate-500 */
+}
+.map-room.non-bookable .room-name {
+    text-decoration: line-through;
+}
