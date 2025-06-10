@@ -1,10 +1,10 @@
-// config.js - Data Definitions for TableRes App
-
 // --- Mock User Data ---
 const mockUsers = [
     { id: 'user1', email: 'tejesh@test.com', password: 'admin', name: 'Tejesh' },
     { id: 'user2', email: 'maxim@test.com', password: 'admin', name: 'Maxim' },
     { id: 'user3', email: 'lukas@test.com', password: 'admin', name: 'Lukas' },
+    { id: 'user4', email: 'kim@test.com', password: 'admin', name: 'Kim' },
+
 ];
 
 // --- Room Layout Data for the Map ---

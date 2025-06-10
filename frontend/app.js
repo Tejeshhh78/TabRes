@@ -1,5 +1,3 @@
-// app.js - Main Application Logic for TableRes App
-
 // Global function for handling desk clicks on map
 function handleMapDeskClick(event, appState, domElements, deskData) {
     const deskId = event.currentTarget.dataset.deskId;
@@ -97,6 +95,32 @@ function displayManageBookingMessage(messageDiv, message, type = 'info') {
     setTimeout(() => messageDiv.classList.add('hidden'), 5000);
 }
 
+// Function to show simple booking notification
+function showBookingNotification(message, type = 'success') {
+    // Create notification element if it doesn't exist
+    let notification = document.getElementById('bookingNotification');
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'bookingNotification';
+        notification.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white font-medium hidden';
+        document.body.appendChild(notification);
+    }
+    
+    // Set notification content and style
+    notification.textContent = message;
+    notification.className = `fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-lg shadow-lg text-white font-medium ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+    }`;
+    
+    // Show notification
+    notification.classList.remove('hidden');
+    
+    // Auto-hide after 4 seconds
+    setTimeout(() => {
+        notification.classList.add('hidden');
+    }, 4000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log("APP.JS: DOM fully loaded. Initializing TableRes App main script...");
 
@@ -111,12 +135,53 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Fehler: UI-Funktionen konnten nicht geladen werden. Die Anwendung kann nicht starten.");
         return;
     }
-    console.log("APP.JS: config.js and ui.js dependencies seem to be available.");
-
-    // --- Application State ---
+    console.log("APP.JS: config.js and ui.js dependencies seem to be available.");    // --- Application State ---
     const appState = {
-        currentUser: null,
-        allBookings: [],
+        currentUser: null,        allBookings: [
+            // Sample bookings for testing - remove in production
+            {
+                id: 'booking_sample1',
+                userId: 'user1',
+                bookedItemId: 'desk1',
+                bookedItemName: 's2_1og_r5 - Tisch A',
+                date: getTodayDateString(),
+                timeSlot: 'Vormittag',
+                status: 'booked',
+                createdAt: new Date(Date.now() - 86400000).toISOString() // Yesterday
+            },
+            {
+                id: 'booking_sample2',
+                userId: 'user1',
+                bookedItemId: 'desk2',
+                bookedItemName: 's2_1og_r5 - Tisch B',
+                date: new Date(Date.now() + 86400000).toISOString().split('T')[0], // Tomorrow
+                timeSlot: 'Nachmittag',
+                status: 'booked',
+                createdAt: new Date(Date.now() - 7200000).toISOString() // 2 hours ago
+            },
+            {
+                id: 'booking_sample3',
+                userId: 'user1',
+                bookedItemId: 'desk3',
+                bookedItemName: 's2_1og_r6 - Tisch A',
+                date: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday
+                timeSlot: 'Ganzer Tag',
+                status: 'cancelled',
+                createdAt: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
+                updatedAt: new Date(Date.now() - 86400000).toISOString() // Yesterday
+            },
+            // Add another test booking for today to see red desks
+            {
+                id: 'booking_sample4',
+                userId: 'user2',
+                bookedItemId: 'desk4',
+                bookedItemName: 's2_1og_r5 - Tisch D',
+                date: getTodayDateString(),
+                timeSlot: 'Ganzer Tag',
+                status: 'booked',
+                createdAt: new Date(Date.now() - 3600000).toISOString() // 1 hour ago
+            }
+        ],
         bookableItems: initialDeskData.map(desk => ({ id: desk.id, name: `${desk.roomId} - ${desk.deskLabel}` })),
         mapSelectedDate: getTodayDateString(),
         mapSelectedTimeSlot: timeSlots[0],
@@ -135,11 +200,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentUserDisplay: document.getElementById('currentUserDisplay'),
         currentUserDisplayMobile: document.getElementById('currentUserDisplayMobile'),
         logoutButton: document.getElementById('logoutButton'),
-        navButtons: document.querySelectorAll('.nav-button'),
-        pages: {
+        navButtons: document.querySelectorAll('.nav-button'),        pages: {
             dashboard: document.getElementById('dashboardPage'),
             map: document.getElementById('mapPage'),
-            book: document.getElementById('bookPage'),
             manage: document.getElementById('managePage'),
         },
         welcomeMessage: document.getElementById('welcomeMessage'),
@@ -150,11 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
         mapContainer: document.getElementById('mapContainer'),
         mapDateSelect: document.getElementById('mapDateSelect'),
         mapTimeSlotSelect: document.getElementById('mapTimeSlotSelect'),
-        bookingForm: document.getElementById('bookingForm'),
-        tableSelect: document.getElementById('tableSelect'),
-        bookingDateInput: document.getElementById('bookingDate'),
-        timeSlotRadiosContainer: document.getElementById('timeSlotRadios'),
-        bookingMessageDiv: document.getElementById('bookingMessage'),
         userBookingsContainer: document.getElementById('userBookingsContainer'),
         manageBookingMessageDiv: document.getElementById('manageBookingMessage'),
         editBookingModal: document.getElementById('editBookingModal'),
@@ -166,11 +224,17 @@ document.addEventListener('DOMContentLoaded', () => {
         cancelEditBookingButton: document.getElementById('cancelEditBooking'),
         generalModal: document.getElementById('generalModal'),
         generalModalContent: document.getElementById('generalModalContent'),
-        generalModalCloseButton: document.getElementById('generalModalCloseButton'),
-        generalModalIcon: document.getElementById('generalModalIcon'),
+        generalModalCloseButton: document.getElementById('generalModalCloseButton'),        generalModalIcon: document.getElementById('generalModalIcon'),
         generalModalMessage: document.getElementById('generalModalMessage'),
         currentYearEl: document.getElementById('currentYear'),
-        footerUserId: document.getElementById('footerUserId')
+        footerUserId: document.getElementById('footerUserId'),
+        // New elements for enhanced manage page
+        bookingStatusFilter: document.getElementById('bookingStatusFilter'),
+        noBookingsMessage: document.getElementById('noBookingsMessage'),
+        bulkDeleteModal: document.getElementById('bulkDeleteModal'),
+        bulkDeleteCount: document.getElementById('bulkDeleteCount'),
+        confirmBulkDelete: document.getElementById('confirmBulkDelete'),
+        cancelBulkDelete: document.getElementById('cancelBulkDelete')
     };
     console.log("APP.JS: DOM elements collected.");
 
@@ -187,9 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if(currentDomElements.editBookingTimeSlotSelect) populateTimeSlotSelectFnFromUI(currentDomElements.editBookingTimeSlotSelect, timeSlotsDataFromConfig, bookingToEdit.timeSlot);
         if(currentDomElements.editBookingModal) currentDomElements.editBookingModal.classList.remove('hidden');
-    }
-
-    // Helper function for handling cancel booking
+    }    // Helper function for handling cancel booking
     function handleCancelBookingClick(event, currentAppState, currentRenderFunctionsFromApp) {
         const bookingId = event.currentTarget.dataset.bookingId;
         const bookingName = event.currentTarget.dataset.bookingName;
@@ -213,9 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Group render functions (from ui.js) and handlers (from app.js)
     const renderFunctions = {
         renderDashboard, 
-        renderMapPage,   
-        renderDetailedMap, 
-        renderBookingForm, 
+        renderMapPage,        renderDetailedMap, 
         renderManageBookingsPage, 
         handleEditBookingClick,   
         handleCancelBookingClick, 
@@ -316,62 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (domElements.mapTimeSlotSelect) {
         domElements.mapTimeSlotSelect.addEventListener('change', (e) => {
             appState.mapSelectedTimeSlot = e.target.value;
-            console.log("APP.JS: Map time slot changed to:", appState.mapSelectedTimeSlot);
-            renderDetailedMap(appState, domElements, roomLayoutData, initialDeskData, handleMapDeskClick);
-        });
-    }    // Regular booking form handler
-    if (domElements.bookingForm) {
-        domElements.bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (!appState.currentUser) {
-                displayBookingMessage(domElements.bookingMessageDiv, 'Bitte zuerst einloggen.', 'error'); 
-                return;
-            }
-            const deskId = domElements.tableSelect.value;
-            const date = domElements.bookingDateInput.value;
-            const timeSlotRadio = document.querySelector('input[name="bookingTimeSlot"]:checked');
-            if (!deskId || !date || !timeSlotRadio) {
-                displayBookingMessage(domElements.bookingMessageDiv, 'Bitte alle Felder ausfüllen.', 'error');
-                return;
-            }
-            const timeSlot = timeSlotRadio.value;
-            const deskDetails = initialDeskData.find(d => d.id === deskId);
-            if (!deskDetails) {
-                 displayBookingMessage(domElements.bookingMessageDiv, 'Fehler: Schreibtischdetails nicht gefunden.', 'error');
-                 return;
-            }
-            const conflict = appState.allBookings.find(b =>
-                b.bookedItemId === deskId &&
-                b.date === date &&
-                b.status !== 'cancelled' &&
-                (b.timeSlot === timeSlot || b.timeSlot === "Ganzer Tag" || timeSlot === "Ganzer Tag")
-            );
-            if (conflict) {
-                displayBookingMessage(domElements.bookingMessageDiv, `Der Schreibtisch "${deskDetails.deskLabel}" ist am ${date} für "${timeSlot}" bereits belegt.`, 'error');
-                return;
-            }
-            const newBooking = {
-                id: generateId('booking_'),
-                userId: appState.currentUser.id,
-                bookedItemId: deskId,
-                bookedItemName: `${deskDetails.roomId} - ${deskDetails.deskLabel}`,
-                date: date,
-                timeSlot: timeSlot,
-                status: 'booked',
-                createdAt: new Date().toISOString()
-            };
-            appState.allBookings.push(newBooking);
-            console.log("APP.JS: New booking added:", newBooking);
-            displayBookingMessage(domElements.bookingMessageDiv, `Schreibtisch "${deskDetails.deskLabel}" erfolgreich für ${date} (${timeSlot}) gebucht!`, 'success');
-            domElements.bookingForm.reset(); 
-            if (domElements.bookingDateInput) domElements.bookingDateInput.value = getTodayDateString(); 
-            
-            // Update dashboard after booking
-            renderDashboard(appState.currentUser, appState.allBookings, domElements, getTodayDateString);
-            
-            if (domElements.pages.map && !domElements.pages.map.classList.contains('hidden')) { 
-                renderDetailedMap(appState, domElements, roomLayoutData, initialDeskData, handleMapDeskClick); 
-            }
+            console.log("APP.JS: Map time slot changed to:", appState.mapSelectedTimeSlot);            renderDetailedMap(appState, domElements, roomLayoutData, initialDeskData, handleMapDeskClick);
         });
     }
 
@@ -379,8 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBookingForm = document.getElementById('modalBookingForm');
     if (modalBookingForm) {
         modalBookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (!appState.currentUser) {
+            e.preventDefault();            if (!appState.currentUser) {
                 alert('Bitte zuerst einloggen.');
                 return;
             }
@@ -426,13 +430,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("APP.JS: New booking added via modal:", newBooking);
             
             // Update dashboard after booking
-            renderDashboard(appState.currentUser, appState.allBookings, domElements, getTodayDateString);
-            
-            // Hide modal and update map
+            renderDashboard(appState.currentUser, appState.allBookings, domElements, getTodayDateString);            // Hide modal and update map
             document.getElementById('bookingModal').classList.add('hidden');
             renderDetailedMap(appState, domElements, roomLayoutData, initialDeskData, handleMapDeskClick);
             
-            alert(`Schreibtisch "${deskDetails.deskLabel}" erfolgreich für ${date} (${timeSlot}) gebucht!`);
+            // Show simple green notification
+            showBookingNotification(`Schreibtisch "${deskDetails.deskLabel}" erfolgreich für ${date} (${timeSlot}) gebucht!`);
         });
     }
 
