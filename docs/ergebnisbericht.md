@@ -36,7 +36,6 @@ Für die serverseitige Logik (Backend) war die Umsetzung mit Node.js und JavaScr
 
 Der gesamte Quellcode des Projekts wurde über GitHub versioniert und im Team geteilt. Dadurch war es möglich, Änderungen transparent nachzuverfolgen, gemeinsam an verschiedenen Komponenten zu arbeiten und den aktuellen Stand jederzeit abzugleichen. Die Nutzung von GitHub trug wesentlich zur effizienten Zusammenarbeit und zur Qualitätssicherung im Projekt bei.
 
-
 ## 5. Ergebnisse
 
 Im Verlauf des Projekts konnten verschiedene zentrale Funktionen erfolgreich umgesetzt werden. Ein wesentlicher Bestandteil ist der Login-Bereich: In der Datei `config.js` besteht die Möglichkeit, Benutzer in einer Simulationsdatenbank anzulegen. Mit diesen Benutzerdaten kann man sich anschließend in das System einloggen. Dies bildet die Grundlage für die individuelle Nutzung der Plattform und sorgt dafür, dass Buchungen personalisiert und nachvollziehbar sind.
