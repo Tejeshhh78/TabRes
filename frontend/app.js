@@ -250,25 +250,36 @@ document.addEventListener('DOMContentLoaded', () => {
             currentDomElements.editBookingDateInput.min = getTodayDateString();
         }
         if(currentDomElements.editBookingTimeSlotSelect) populateTimeSlotSelectFnFromUI(currentDomElements.editBookingTimeSlotSelect, timeSlotsDataFromConfig, bookingToEdit.timeSlot);
-        if(currentDomElements.editBookingModal) currentDomElements.editBookingModal.classList.remove('hidden');
-    }    // Helper function for handling cancel booking
-    function handleCancelBookingClick(event, currentAppState, currentRenderFunctionsFromApp) {
+        if(currentDomElements.editBookingModal) currentDomElements.editBookingModal.classList.remove('hidden');    }    
+    // Helper function for handling cancel booking
+    function handleCancelBookingClick(event, currentAppState, renderFunctions) {
+        console.log('handleCancelBookingClick called', { event, currentAppState, renderFunctions });
         const bookingId = event.currentTarget.dataset.bookingId;
         const bookingName = event.currentTarget.dataset.bookingName;
         const bookingDate = event.currentTarget.dataset.bookingDate;
+        console.log('Booking data:', { bookingId, bookingName, bookingDate });
+        
         if (confirm(`Möchten Sie die Buchung für ${bookingName} am ${bookingDate} wirklich stornieren?`)) {
             const bookingIndex = currentAppState.allBookings.findIndex(b => b.id === bookingId);
             if (bookingIndex > -1) {
                 currentAppState.allBookings[bookingIndex].status = 'cancelled';
                 currentAppState.allBookings[bookingIndex].updatedAt = new Date().toISOString();
-                displayManageBookingMessage(domElements.manageBookingMessageDiv, 'Buchung erfolgreich storniert!', 'success'); 
+                
+                // Show success message
+                if (domElements.manageBookingMessageDiv) {
+                    displayManageBookingMessage(domElements.manageBookingMessageDiv, 'Buchung erfolgreich storniert!', 'success');
+                }
+                  // Re-render the manage bookings page
+                renderManageBookingsPage(currentAppState.currentUser, currentAppState.allBookings, domElements, renderFunctions, populateTimeSlotSelect, timeSlots);
+                // Update dashboard with new booking info
+                renderDashboard(currentAppState.currentUser, currentAppState.allBookings, domElements, getTodayDateString);
+                // Update the map view 
+                renderDetailedMap(currentAppState, domElements, roomLayoutData, initialDeskData, handleMapDeskClick);
             } else {
-                 displayManageBookingMessage(domElements.manageBookingMessageDiv, 'Fehler: Buchung nicht gefunden.', 'error');
+                if (domElements.manageBookingMessageDiv) {
+                    displayManageBookingMessage(domElements.manageBookingMessageDiv, 'Fehler: Buchung nicht gefunden.', 'error');
+                }
             }
-            currentRenderFunctionsFromApp.renderManageBookingsPage(currentAppState.currentUser, currentAppState.allBookings, domElements, currentRenderFunctionsFromApp, populateTimeSlotSelect);
-            currentRenderFunctionsFromApp.renderDetailedMap(currentAppState, domElements, roomLayoutData, initialDeskData, handleMapDeskClick);
-            // Update dashboard with new booking info
-            renderDashboard(currentAppState.currentUser, currentAppState.allBookings, domElements, getTodayDateString);
         }
     }
 
@@ -462,9 +473,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayManageBookingMessage(domElements.manageBookingMessageDiv, 'Buchung erfolgreich aktualisiert!', 'success');
             } else {
                 displayManageBookingMessage(domElements.manageBookingMessageDiv, 'Fehler: Buchung nicht gefunden.', 'error');
-            }
-            if(domElements.editBookingModal) domElements.editBookingModal.classList.add('hidden');
-            renderManageBookingsPage(appState.currentUser, appState.allBookings, domElements, renderFunctions, populateTimeSlotSelect); 
+            }            if(domElements.editBookingModal) domElements.editBookingModal.classList.add('hidden');
+            renderManageBookingsPage(appState.currentUser, appState.allBookings, domElements, renderFunctions, populateTimeSlotSelect, timeSlots);
             renderDetailedMap(appState, domElements, roomLayoutData, initialDeskData, handleMapDeskClick);
             // Update dashboard after editing booking
             renderDashboard(appState.currentUser, appState.allBookings, domElements, getTodayDateString);
