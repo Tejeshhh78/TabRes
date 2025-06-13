@@ -71,7 +71,7 @@ function showPage(pageId, domElements, appState, renderFunctions) {
         }        // Render manage page when showing manage page
         if (pageId === 'manage' && appState.currentUser) {
             console.log('Rendering manage page...');
-            renderManageBookingsPage(appState.currentUser, appState.allBookings, domElements, renderFunctions, populateTimeSlotSelect);
+            renderManageBookingsPage(appState.currentUser, appState.allBookings, domElements, renderFunctions, populateTimeSlotSelect, timeSlots);
         }
     }
 }
@@ -237,7 +237,7 @@ function renderDetailedMap(appState, domElements, roomLayout, deskData, mapDeskC
 }
 
 
-function renderManageBookingsPage(currentUser, allBookings, domElements, renderFunctions, populateTimeSlotSelectFn) {
+function renderManageBookingsPage(currentUser, allBookings, domElements, renderFunctions, populateTimeSlotSelectFn, timeSlots) {
     if (!currentUser || !domElements.userBookingsContainer) return;
     
     // Get all user bookings
@@ -402,20 +402,13 @@ function renderManageBookingsPage(currentUser, allBookings, domElements, renderF
             newFilterSelect.removeEventListener('change', handleFilterChange);
             newFilterSelect.addEventListener('change', handleFilterChange);
         }
-    }
-
-    function handleFilterChange() {
-        renderManageBookingsPage(currentUser, allBookings, domElements, renderFunctions, populateTimeSlotSelectFn);
-    }
-
-    // Set up bulk actions
-    setupBulkActions(domElements, renderFunctions, currentUser, allBookings, populateTimeSlotSelectFn);
-
-    // Event listeners for edit/cancel buttons
+    }    function handleFilterChange() {
+        renderManageBookingsPage(currentUser, allBookings, domElements, renderFunctions, populateTimeSlotSelectFn, timeSlots);
+    }    // Set up bulk actions
+    setupBulkActions(domElements, renderFunctions, currentUser, allBookings, populateTimeSlotSelectFn, timeSlots);// Event listeners for edit/cancel buttons
     document.querySelectorAll('.edit-booking-btn').forEach(button => {
         button.addEventListener('click', (event) => renderFunctions.handleEditBookingClick(event, { currentUser, allBookings }, domElements, populateTimeSlotSelectFn, timeSlots));
-    });
-    document.querySelectorAll('.cancel-booking-btn').forEach(button => {
+    });    document.querySelectorAll('.cancel-booking-btn').forEach(button => {
         button.addEventListener('click', (event) => renderFunctions.handleCancelBookingClick(event, { currentUser, allBookings }, renderFunctions));
     });
 }
@@ -483,7 +476,7 @@ function formatDateTime(dateTimeString) {
 }
 
 // Setup bulk actions for manage bookings page
-function setupBulkActions(domElements, renderFunctions, currentUser, allBookings, populateTimeSlotSelectFn) {
+function setupBulkActions(domElements, renderFunctions, currentUser, allBookings, populateTimeSlotSelectFn, timeSlots) {
     const selectAllCheckbox = document.getElementById('selectAllBookings');
     const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
     const selectedCountSpan = document.getElementById('selectedCount');
@@ -550,9 +543,8 @@ function setupBulkActions(domElements, renderFunctions, currentUser, allBookings
                     domElements.manageBookingMessageDiv.classList.remove('hidden');
                     setTimeout(() => domElements.manageBookingMessageDiv.classList.add('hidden'), 5000);
                 }
-                
-                // Re-render the page
-                renderManageBookingsPage(currentUser, allBookings, domElements, renderFunctions, populateTimeSlotSelectFn);
+                  // Re-render the page
+                renderManageBookingsPage(currentUser, allBookings, domElements, renderFunctions, populateTimeSlotSelectFn, timeSlots);
                 
                 // Update dashboard
                 renderDashboard(currentUser, allBookings, domElements, getTodayDateString);
