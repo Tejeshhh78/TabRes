@@ -4,7 +4,7 @@ const mockUsers = [
     { id: 'user2', email: 'maxim@test.com', password: 'admin', name: 'Maxim' },
     { id: 'user3', email: 'lukas@test.com', password: 'admin', name: 'Lukas' },
     { id: 'user4', email: 'kim@test.com', password: 'admin', name: 'Kim' },
-
+    { id: 'user5', email: 'admin@test.com', password: 'admin', name: 'Test User' },
 ];
 
 // --- Room Layout Data for the Map ---
