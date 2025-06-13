@@ -17,6 +17,8 @@
 
 Im Rahmen des zweiten Semesters im Studiengang Informatik an der DHBW Bad Mergentheim wurde das Ziel verfolgt, ein digitales Tischbuchungssystem zu entwickeln, das den Arbeitsalltag der Mitarbeiter flexibler und effizienter gestalten soll. Die Idee entstand aus dem Wunsch, den Buchungsprozess für Arbeitsplätze zu digitalisieren und an die modernen Anforderungen von flexiblen Arbeitsmodellen anzupassen. Die folgende Plan-Ist-Reflexion vergleicht die ursprünglichen Planungen mit dem tatsächlichen Projektverlauf, analysiert Abweichungen und zieht daraus Schlüsse für zukünftige Projekte. Ziel ist es, nicht nur die Ergebnisse zu bewerten, sondern auch die Erfahrungen und Erkenntnisse für kommende Vorhaben nutzbar zu machen.
 
+---
+
 ## 2. Planung (Plan)
 
 Zu Beginn des Projekts wurde ein detaillierter Plan erstellt, der als Leitfaden für die gesamte Projektlaufzeit diente. Dieser umfasste die Zieldefinition, einen Projektstrukturplan (PSP), einen Ressourcenplan mit je 100 Stunden pro Teammitglied, einen Zeitplan sowie eine kritische Pfadanalyse. Die Aufgabenverteilung war klar geregelt: Zwei Teammitglieder (Lukas und Tejesh) sollten sich überwiegend um die Entwicklung kümmern, während Maxim die Kommunikation, Planung und Dokumentation übernahm. Die technische Umsetzung war in zwei Meilensteine gegliedert: Zuerst die Entwicklung des Frontends, anschließend die des Backends. Die Zusammenarbeit sollte über Discord und Notion erfolgen, wobei Notion als Kanban-Board zur Aufgabenverfolgung diente. Bereits in der Planungsphase wurde Wert auf eine transparente Kommunikation und regelmäßige Abstimmungen im Team sowie mit dem Auftraggeber gelegt. Die Planung sah außerdem vor, die wichtigsten Anforderungen und Funktionen frühzeitig zu definieren, um eine klare Orientierung für die Umsetzung zu haben.
@@ -27,9 +29,13 @@ Zu Beginn des Projekts wurde ein detaillierter Plan erstellt, der als Leitfaden 
 
 Im Projektverlauf zeigte sich, dass die Planung in vielen Punkten hilfreich war, aber nicht alle Ziele wie vorgesehen erreicht werden konnten. Die Entwicklung des Frontends verlief weitgehend wie geplant: Es wurde ein Prototyp erstellt, die wichtigsten Ansichten und Funktionen (Login, Buchungsübersicht, Kartenansicht, Verwaltung der Buchungen) wurden umgesetzt und kontinuierlich verbessert. Die Zusammenarbeit im Team funktionierte gut, Aufgaben wurden transparent verteilt und dokumentiert. Besonders hilfreich war die Nutzung von Notion als Kanban-Board, um den Überblick über offene und erledigte Aufgaben zu behalten. Herausforderungen gab es vor allem bei der Backend-Entwicklung: Hier fehlte es an Erfahrung, was zu Verzögerungen führte. Das Backend wurde begonnen, konnte aber im Rahmen des Projekts nicht fertiggestellt werden. Die Kommunikation mit dem Auftraggeber verlief reibungslos, Änderungswünsche konnten meist zeitnah umgesetzt werden. Insgesamt wurde deutlich, dass die iterative Vorgehensweise und die regelmäßigen Abstimmungen im Team dazu beigetragen haben, flexibel auf neue Anforderungen und Probleme zu reagieren.
 
+---
+
 ## 4. Abweichungen und deren Ursachen
 
 Die größte Abweichung bestand darin, dass das Backend nicht wie geplant fertiggestellt werden konnte. Ursache hierfür war vor allem mangelnde Erfahrung im Team mit den eingesetzten Technologien (Node.js, MongoDB). Zudem wurde im Verhältnis viel Zeit in die Planung und Konzeption investiert, wodurch für die eigentliche Entwicklung weniger Zeit blieb. Die Aufgabenverteilung war grundsätzlich sinnvoll, hätte aber noch flexibler gestaltet werden können, um Engpässe zu vermeiden. Ein weiterer Punkt war, dass die Komplexität einiger Anforderungen – insbesondere im Bereich der Datenbankanbindung und der Benutzerverwaltung – unterschätzt wurde. Dadurch mussten einige Funktionen zurückgestellt oder vereinfacht werden. Insgesamt zeigte sich, dass eine realistische Einschätzung des eigenen Know-hows und eine frühzeitige Identifikation von möglichen Engpässen entscheidend für den Projekterfolg sind.
+
+---
 
 ## 5. Lessons Learned und Ausblick
 
