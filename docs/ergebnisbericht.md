@@ -1,21 +1,21 @@
 # Ergebnisbericht zum Anwendungsprojekt: Tischbuchungssystem für die DHBW Bad Mergentheim
 
----
-
 ## Inhaltsverzeichnis
 
-1. [Projektthema & Zielsetzung](#1-projektthema--zielsetzung)
-2. [Projektteam](#2-projektteam)
-3. [Projektverlauf](#3-projektverlauf)
-   - [Planung & Meilensteine](#planung--meilensteine)
-   - [Konzeption & Design](#konzeption--design)
-   - [Frontend-Entwicklung](#frontend-entwicklung)
-   - [Backend-Entwicklung](#backend-entwicklung)
-   - [Teamkommunikation & Tools](#teamkommunikation--tools)
-4. [Technische Umsetzung](#4-technische-umsetzung)
-5. [Ergebnisse](#5-ergebnisse)
-6. [Reflexion](#6-reflexion)
-7. [Ausblick](#7-ausblick)
+- [Ergebnisbericht zum Anwendungsprojekt: Tischbuchungssystem für die DHBW Bad Mergentheim](#ergebnisbericht-zum-anwendungsprojekt-tischbuchungssystem-für-die-dhbw-bad-mergentheim)
+  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [1. Projektthema \& Zielsetzung](#1-projektthema--zielsetzung)
+  - [2. Projektteam](#2-projektteam)
+  - [3. Projektverlauf](#3-projektverlauf)
+    - [Planung \& Meilensteine](#planung--meilensteine)
+    - [Konzeption \& Design](#konzeption--design)
+    - [Frontend-Entwicklung](#frontend-entwicklung)
+    - [Backend-Entwicklung](#backend-entwicklung)
+    - [Teamkommunikation \& Tools](#teamkommunikation--tools)
+  - [4. Technische Umsetzung](#4-technische-umsetzung)
+  - [5. Ergebnisse](#5-ergebnisse)
+  - [6. Reflexion](#6-reflexion)
+  - [7. Ausblick](#7-ausblick)
 
 ---
 
@@ -51,6 +51,8 @@ Die Konzeption und das Design des Projekts verliefen insgesamt sehr strukturiert
 
 Ein wichtiger Meilenstein war die Entwicklung des **Frontends**. Hier wurde zunächst ein Prototyp erstellt, um die grundlegende Bedienung und das Design zu testen. Im Anschluss daran wurden die verschiedenen Ansichten und Funktionen Schritt für Schritt umgesetzt, wie zum Beispiel die Login-Maske, die Übersicht der Buchungen, die Kartenansicht zur Auswahl von Tischen und die Verwaltung der eigenen Buchungen. Während der Entwicklung wurde viel Wert auf eine intuitive Bedienung und ein ansprechendes Design gelegt. Die Umsetzung erfolgte iterativ, das heißt, es wurden regelmäßig neue Funktionen ergänzt und bestehende verbessert.
 
+<div style="page-break-after: always;"></div>
+
 ### Backend-Entwicklung
 
 Parallel dazu wurde mit der Planung und ersten Umsetzung des **Backends** begonnen. Ziel war es, eine stabile und sichere Serverstruktur mit Node.js und MongoDB zu schaffen, die die Buchungsdaten verwaltet und die Kommunikation zwischen Frontend und Datenbank ermöglicht. Da das Team in diesem Bereich jedoch noch wenig Erfahrung hatte, gestaltete sich die Entwicklung des Backends als besonders herausfordernd und zeitintensiv. Es wurden erste Schnittstellen und Datenmodelle entwickelt, die jedoch im Rahmen des Projekts nicht vollständig fertiggestellt werden konnten.
@@ -71,7 +73,7 @@ Die technische Umsetzung des Projekts erfolgte mit einem klaren Fokus auf modern
 - **Backend:** Umsetzung mit Node.js und JavaScript, geplant war die Nutzung einer MongoDB für die flexible Speicherung der Buchungsdaten, Nutzerinformationen und Konfigurationen. Die Entwicklung des Backends stellte das Team jedoch vor besondere Herausforderungen, da in diesem Bereich noch wenig Erfahrung vorhanden war. Aus diesem Grund wurde das Backend zwar begonnen, konnte aber im Rahmen des Projekts nicht vollständig fertiggestellt werden. Dennoch wurden bereits erste Schnittstellen und Datenmodelle entwickelt, die als Grundlage für eine spätere Fertigstellung dienen können.
 - **Versionierung:** Der gesamte Quellcode des Projekts wurde über **GitHub** versioniert und im Team geteilt. Dadurch war es möglich, Änderungen transparent nachzuverfolgen, gemeinsam an verschiedenen Komponenten zu arbeiten und den aktuellen Stand jederzeit abzugleichen. Die Nutzung von GitHub trug wesentlich zur effizienten Zusammenarbeit und zur Qualitätssicherung im Projekt bei.
 
----
+<div style="page-break-after: always;"></div>
 
 ## 5. Ergebnisse
 
